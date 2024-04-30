@@ -1,6 +1,6 @@
-import React from 'react';
-import {View, TextInput, StyleSheet} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React from "react";
+import { View, TextInput, StyleSheet } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const SearchBar = ({
   location,
@@ -24,7 +24,7 @@ const SearchBar = ({
         value={location}
         onChangeText={onLocationChange}
         inputMode="text"
-        textContentType={'addressCity'}
+        textContentType={"addressCity"}
         onEndEditing={onEndEditing}
       />
     </View>
@@ -34,11 +34,11 @@ const SearchBar = ({
 const styles = StyleSheet.create({
   backgroundStyle: {
     marginTop: 10,
-    backgroundColor: '#F0EEEE',
+    backgroundColor: "#F0EEEE",
     height: 50,
     borderRadius: 5,
     marginHorizontal: 15,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   inputStyle: {
     flex: 1,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   iconStyle: {
     fontSize: 35,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginHorizontal: 15,
   },
 });
