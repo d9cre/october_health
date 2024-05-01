@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, ImageBackground } from "react-native";
+import { View, ImageBackground } from "react-native";
 import openWeatherMap from "../api/openWeatherMap";
 import SearchBar from "../components/SearchBar";
 import WeatherReport from "../components/WeatherReport";
-import TempToggle from "../components/TempToggle";
 import { StyledText, StyledView } from "../components/StyledComponents";
 
 const HomeScreen = () => {
@@ -29,7 +28,6 @@ const HomeScreen = () => {
 
       // set the weather data to state
       setWeather(response.data);
-      console.log("weather", response.data);
 
       // clear the location input
       setLocation("");
@@ -52,6 +50,7 @@ const HomeScreen = () => {
         resizeMode="cover"
         style={{ flex: 1, justifyContent: "center" }}
       >
+
         <StyledView justify="flex-start" marginTop={20}>
           <SearchBar
             location={location}
@@ -59,8 +58,10 @@ const HomeScreen = () => {
             updateWeather={getWeather}
           />
         </StyledView>
+
         {
-          // show a message if there is no location entered
+          // show a message if there is no location entered or an error
+          // note: the openweathermap api documentation on error codes was not clear, so the error message is handled the same way as an empty/missing location
           errorMsg !== "" || weather === undefined ? (
             <StyledView flex={5} justify="flex-start">
               <StyledText>
@@ -68,6 +69,7 @@ const HomeScreen = () => {
               </StyledText>
             </StyledView>
           ) : (
+
             // show the weather report and temperature toggle if there is weather data
             <StyledView flex={5} justify="flex-start">
               <WeatherReport
@@ -76,6 +78,7 @@ const HomeScreen = () => {
                 setTempUnit={setTempUnit}
               />
             </StyledView>
+
           )
         }
       </ImageBackground>

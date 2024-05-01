@@ -3,7 +3,6 @@ import {
   View,
   TextInput,
   StyleSheet,
-  Button,
   TouchableOpacity,
   Text,
 } from "react-native";
@@ -17,7 +16,7 @@ const SearchBar = ({
   onLocationChange: (location: string) => void;
   updateWeather: () => void;
 }) => {
-  // display a search bar with a search icon
+  // display a search bar with a search button
   return (
     <View style={styles.backgroundStyle}>
       <TextInput
@@ -31,6 +30,7 @@ const SearchBar = ({
         inputMode="text"
         textContentType={"addressCity"}
       />
+
       <TouchableOpacity onPress={updateWeather}>
         <Text style={styles.buttonStyle}>Search</Text>
       </TouchableOpacity>

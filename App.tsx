@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import HomeScreen from "./src/screens";
 
-// create a navigator to navigate between screens
 const Stack = createNativeStackNavigator();
 
 function App() {
