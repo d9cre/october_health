@@ -13,7 +13,7 @@ const HomeScreen = () => {
   const [errorMsg, setErrorMsg] = useState("");
 
   const image = {
-    uri: "https://images.unsplash.com/photo-1590552515252-3a5a1bce7bed?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    uri: "https://images.unsplash.com/photo-1594652010347-788d009508c3?q=80&w=2785&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   };
 
   // call the openweathermap api to get the weather data
@@ -46,8 +46,12 @@ const HomeScreen = () => {
   };
 
   return (
-    <View style={{flex: 1}}>
-      <ImageBackground source={image} resizeMode="cover" style={{ flex: 1, justifyContent: 'center' }}>
+    <View style={{ flex: 1 }}>
+      <ImageBackground
+        source={image}
+        resizeMode="cover"
+        style={{ flex: 1, justifyContent: "center" }}
+      >
         <StyledView justify="flex-start" marginTop={20}>
           <SearchBar
             location={location}
@@ -60,7 +64,7 @@ const HomeScreen = () => {
           errorMsg !== "" || weather === undefined ? (
             <StyledView flex={5} justify="flex-start">
               <StyledText>
-                Enter a valid location to get the weather report
+                Enter a valid location to get the current weather report.
               </StyledText>
             </StyledView>
           ) : (

@@ -32,7 +32,7 @@ export const StyledView = styled(View)<{
   justify-content: ${(props: { justify?: string }) =>
     props.justify || "center"};
   align-items: ${(props: { align?: string }) => props.align || "center"};
-    flex-direction: ${(props: { flexDirection?: string }) =>
-        props.flexDirection || "column"};
-    margin-top: ${(props: { marginTop?: number }) => props.marginTop || 0}px;
+  flex-direction: ${(props: { flexDirection?: string }) =>
+    props.flexDirection || "column"};
+  margin-top: ${(props: { marginTop?: number }) => props.marginTop || 0}px;
 `;

@@ -26,19 +26,25 @@ const WeatherReport = ({
       <StyledText size={30} marginBottom={10} weight="bold">
         {weather?.name}, {weather?.sys.country}
       </StyledText>
-      <StyledText>{new Date().toLocaleDateString('en-us',{ weekday:"short", month:"short", day:"numeric"})}</StyledText>
+      <StyledText>
+        {new Date().toLocaleDateString("en-us", {
+          weekday: "short",
+          month: "short",
+          day: "numeric",
+        })}
+      </StyledText>
 
-      <StyledText size={60} marginBottom={20}>
+      <StyledText size={60}>
         {weather?.main ? convertTemp(weather?.main.temp).toFixed(0) : 0}°
       </StyledText>
       <StyledText size={17} marginBottom={20}>
         Feels like{" "}
         {weather?.main ? convertTemp(weather?.main.feels_like).toFixed(0) : 0}°
       </StyledText>
-        <StyledView>
-      <TempToggle tempUnit={tempUnit} setTempUnit={setTempUnit} />
-        </StyledView>
-      <StyledView flex={3} justify="flex-start">
+      <StyledView>
+        <TempToggle tempUnit={tempUnit} setTempUnit={setTempUnit} />
+      </StyledView>
+      <StyledView flex={4} justify="flex-start">
         <Image
           height={80}
           width={80}
