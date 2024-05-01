@@ -1,29 +1,54 @@
 import React from "react";
-import { Image } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { Weather } from "../utils/types";
+import TempToggle from "./TempToggle";
+import { StyledText, StyledView } from "./StyledComponents";
 
 const WeatherReport = ({
-  current,
+  weather,
   tempUnit,
+  setTempUnit,
 }: {
-  current: Weather;
+  weather?: Weather;
   tempUnit: string;
+  setTempUnit: (tempUnit: string) => void;
 }) => {
   // get weather icon from openweathermap
-  const icon = current.weather[0].icon;
+  const icon = weather?.weather[0].icon;
 
   // convert temperature to Celcius or Fahrenheit
   const convertTemp = (temp: number) => {
-    return tempUnit === "Celcius" ? temp : (temp * 9) / 5 + 32;
+    return tempUnit === "Celsius" ? temp : (temp * 9) / 5 + 32;
   };
 
-  // display the weather icon, description and temperature
   return (
-    <div>
-      <Image source={{ uri: `http://openweathermap.org/img/w/${icon}.png` }} />
-      <h2>{current.weather[0].description}</h2>
-      <h3>{convertTemp(current.temp)}</h3>
-    </div>
+    <StyledView>
+      <StyledText size={30} marginBottom={10} weight="bold">
+        {weather?.name}, {weather?.sys.country}
+      </StyledText>
+      <StyledText>{new Date().toLocaleDateString('en-us',{ weekday:"short", month:"short", day:"numeric"})}</StyledText>
+
+      <StyledText size={60} marginBottom={20}>
+        {weather?.main ? convertTemp(weather?.main.temp).toFixed(0) : 0}°
+      </StyledText>
+      <StyledText size={17} marginBottom={20}>
+        Feels like{" "}
+        {weather?.main ? convertTemp(weather?.main.feels_like).toFixed(0) : 0}°
+      </StyledText>
+        <StyledView>
+      <TempToggle tempUnit={tempUnit} setTempUnit={setTempUnit} />
+        </StyledView>
+      <StyledView flex={3} justify="flex-start">
+        <Image
+          height={80}
+          width={80}
+          source={{ uri: `http://openweathermap.org/img/w/${icon}.png` }}
+        />
+        <StyledText transformText="capitalize" size={18}>
+          {weather?.weather[0].description}
+        </StyledText>
+      </StyledView>
+    </StyledView>
   );
 };
 

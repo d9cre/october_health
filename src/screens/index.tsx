@@ -1,23 +1,20 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { StyleSheet, Text, View, ImageBackground } from "react-native";
 import openWeatherMap from "../api/openWeatherMap";
 import SearchBar from "../components/SearchBar";
 import WeatherReport from "../components/WeatherReport";
 import TempToggle from "../components/TempToggle";
+import { StyledText, StyledView } from "../components/StyledComponents";
 
 const HomeScreen = () => {
   const [location, setLocation] = useState("");
   const [tempUnit, setTempUnit] = useState("Celsius");
-  const [weather, setWeather] = useState({
-    weather: [
-      {
-        icon: "",
-        description: "",
-      },
-    ],
-    temp: 0,
-  });
+  const [weather, setWeather] = useState(undefined);
   const [errorMsg, setErrorMsg] = useState("");
+
+  const image = {
+    uri: "https://images.unsplash.com/photo-1590552515252-3a5a1bce7bed?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  };
 
   // call the openweathermap api to get the weather data
   const getWeather = async () => {
@@ -31,35 +28,53 @@ const HomeScreen = () => {
       });
 
       // set the weather data to state
-      setWeather(response.data.current);
+      setWeather(response.data);
+      console.log("weather", response.data);
+
+      // clear the location input
+      setLocation("");
 
       // clear the error message if there is no error
       setErrorMsg("");
     } catch (error: any) {
       // set the error message to state if there is an error
       setErrorMsg(error.message);
+
+      // clear the location input
+      setLocation("");
     }
   };
 
   return (
-    <View>
-      <SearchBar
-        location={location}
-        onLocationChange={setLocation}
-        onEndEditing={getWeather}
-      />
-      {
-        // display an error message if there is an error, otherwise display the weather report
-        errorMsg ? (
-          <h1>{errorMsg}</h1>
-        ) : (
-          // display a search bar, weather report and a switch to toggle between Celsius and Fahrenheit
-          <View>
-            <WeatherReport current={weather} tempUnit={tempUnit} />
-            <TempToggle tempUnit={tempUnit} setTempUnit={setTempUnit} />
-          </View>
-        )
-      }
+    <View style={{flex: 1}}>
+      <ImageBackground source={image} resizeMode="cover" style={{ flex: 1, justifyContent: 'center' }}>
+        <StyledView justify="flex-start" marginTop={20}>
+          <SearchBar
+            location={location}
+            onLocationChange={setLocation}
+            updateWeather={getWeather}
+          />
+        </StyledView>
+        {
+          // show a message if there is no location entered
+          errorMsg !== "" || weather === undefined ? (
+            <StyledView flex={5} justify="flex-start">
+              <StyledText>
+                Enter a valid location to get the weather report
+              </StyledText>
+            </StyledView>
+          ) : (
+            // show the weather report and temperature toggle if there is weather data
+            <StyledView flex={5} justify="flex-start">
+              <WeatherReport
+                weather={weather}
+                tempUnit={tempUnit}
+                setTempUnit={setTempUnit}
+              />
+            </StyledView>
+          )
+        }
+      </ImageBackground>
     </View>
   );
 };

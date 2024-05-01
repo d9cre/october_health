@@ -1,8 +1,15 @@
 // Purpose: Define types for the weather service.
 export type Weather = {
+  name: string;
   weather: {
     icon: string;
     description: string;
   }[];
-  temp: number;
+  main: {
+    temp: number;
+    feels_like: number;
+  };
+  sys: {
+    country: string;
+  };
 };

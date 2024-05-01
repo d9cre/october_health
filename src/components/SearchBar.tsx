@@ -1,53 +1,65 @@
 import React from "react";
-import { View, TextInput, StyleSheet } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+  Text,
+} from "react-native";
 
 const SearchBar = ({
   location,
   onLocationChange,
-  onEndEditing,
+  updateWeather,
 }: {
   location: string;
   onLocationChange: (location: string) => void;
-  onEndEditing: () => void;
+  updateWeather: () => void;
 }) => {
   // display a search bar with a search icon
   return (
     <View style={styles.backgroundStyle}>
-      <Icon name="search" style={styles.iconStyle} />
       <TextInput
         autoFocus={true}
         autoCapitalize="words"
         autoCorrect={false}
         style={styles.inputStyle}
-        placeholder="Input location"
+        placeholder="Search City or Zip Code"
         value={location}
         onChangeText={onLocationChange}
         inputMode="text"
         textContentType={"addressCity"}
-        onEndEditing={onEndEditing}
       />
+      <TouchableOpacity onPress={updateWeather}>
+        <Text style={styles.buttonStyle}>Search</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   backgroundStyle: {
-    marginTop: 10,
-    backgroundColor: "#F0EEEE",
     height: 50,
     borderRadius: 5,
     marginHorizontal: 15,
     flexDirection: "row",
+    alignItems: "center",
   },
   inputStyle: {
+    backgroundColor: "rgba(0,0,0, 0.6)",
+    paddingHorizontal: 10,
+    marginEnd: 10,
+    borderRadius: 5,
     flex: 1,
+    justifyContent: "center",
     fontSize: 18,
   },
-  iconStyle: {
-    fontSize: 35,
-    alignSelf: "center",
-    marginHorizontal: 15,
+  buttonStyle: {
+    padding: 14,
+    backgroundColor: "#efc68f",
+    borderRadius: 6,
+    color: "white",
   },
 });
 
